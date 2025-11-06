@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Explorer - Discover Incredible India</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        :root {
+            --saffron: #FF9933;
+            --white: #FFFFFF;
+            --green: #138808;
+            --navy: #000080;
+            --light-bg: #f8fafc;
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --text-light: #334155;
+            --text-dark: #f1f5f9;
+            --gradient-primary: linear-gradient(135deg, #FF9933 0%, #138808 100%);
+            --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.12);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.15);
+            --border-radius: 20px;
+            --border-radius-sm: 12px;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dark-mode {
+            --light-bg: #0f172a;
+            --white: #1e293b;
+            --text-light: #f1f5f9;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
+            --shadow-lg: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        body {
+            background: var(--light-bg);
+            color: var(--text-light);
+            transition: var(--transition);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
+            border-radius: 10px;
+        }
+
+        /* Glass Morphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dark-mode .glass {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: var(--white);
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 3rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        .dark-mode .navbar {
+            background: var(--dark-card);
+        }
+
+        .dark-mode .navbar.scrolled {
+            background: rgba(30, 41, 59, 0.95);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .nav-brand h1 {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--saffron);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Button Styles */
+        .btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--saffron);
+            color: var(--saffron);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Search Section */
+        .search-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .dark-mode .search-section {
+            background: var(--dark-card);
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: var(--saffron);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+            background: var(--white);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .search-box {
+            background: var(--dark-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1.2rem 1.5rem;
+            border: none;
+            background: transparent;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        /* States Grid */
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .states-section {
+            padding: 6rem 2rem;
+            background: var(--light-bg);
+        }
+
+        .dark-mode .states-section {
+            background: var(--dark-bg);
+        }
+
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .state-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .dark-mode .state-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .state-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .state-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .state-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-container {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .state-content {
+            padding: 2rem;
+        }
+
+        .state-content h3 {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .state-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .state-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-tag {
+            background: rgba(255, 153, 51, 0.1);
+            color: var(--saffron);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .card-actions {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* AI Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+            border: 3px solid white;
+        }
+
+        .dark-mode .chatbot-toggle {
+            border: 3px solid var(--dark-card);
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 90px;
+            right: 0;
+            width: 380px;
+            height: 550px;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .chatbot-window {
+            background: var(--dark-card);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chatbot-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            line-height: 1.5;
+            animation: messageSlide 0.3s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background: #f1f5f9;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            color: var(--text-light);
+        }
+
+        .dark-mode .bot-message {
+            background: #334155;
+        }
+
+        .user-message {
+            background: var(--gradient-primary);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            gap: 1rem;
+        }
+
+        .dark-mode .chatbot-input {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius-sm);
+            outline: none;
+            background: var(--white);
+            color: var(--text-light);
+        }
+
+        .dark-mode .chatbot-input input {
+            background: var(--dark-bg);
+            border: 1px solid #334155;
+            color: var(--text-dark);
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            background: var(--gradient-primary);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        /* Share Buttons */
+        .share-section {
+            padding: 6rem 2rem;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .dark-mode .share-section {
+            background: var(--dark-card);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+        }
+
+        .share-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        .facebook { background: linear-gradient(135deg, #3b5998, #2d4373); }
+        .twitter { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+        .whatsapp { background: linear-gradient(135deg, #25d366, #128c7e); }
+        .linkedin { background: linear-gradient(135deg, #0077b5, #005885); }
+        .instagram { background: linear-gradient(135deg, #e4405f, #c13584); }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 4rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Loading Animation */
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .states-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .states-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chatbot-window {
+                width: 320px;
+                height: 450px;
+                right: -50%;
+                transform: translateX(-50%);
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-bg);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--saffron);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--saffron);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.15s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <div class="logo">भ</div>
+            <h1>Bharat Explorer</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#states">States</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#culture">Culture</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn-outline" id="favoritesBtn">
+                <i class="fas fa-heart"></i> Favorites
+            </button>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Experience the Soul of Incredible India</h2>
+            <p>Journey through 28 states, discover ancient cultures, and create memories that last a lifetime</p>
+            <div class="hero-buttons">
+                <button class="btn">
+                    <i class="fas fa-compass"></i> Start Exploring
+                </button>
+                <button class="btn btn-secondary">
+                    <i class="fas fa-play-circle"></i> Watch Story
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>28+</h3>
+                <p>States to Explore</p>
+            </div>
+            <div class="stat-item">
+                <h3>1000+</h3>
+                <p>Cultural Sites</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>UNESCO Heritage</p>
+            </div>
+            <div class="stat-item">
+                <h3>1.4B+</h3>
+                <p>Friendly People</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <span class="section-subtitle">DISCOVER INDIA</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-light);">Find Your Perfect Destination</h2>
+            <p>Search through thousands of amazing places across India's diverse landscape</p>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search states, heritage sites, festivals, or cuisine...">
+                <button class="btn">
+                    <i class="fas fa-search"></i> Explore
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommended States Section -->
+    <section class="states-section" id="states">
+        <div class="section-title">
+            <span class="section-subtitle">POPULAR DESTINATIONS</span>
+            <h2>Featured Indian States</h2>
+            <p>Explore the most beautiful and culturally rich states of India</p>
+        </div>
+        <div class="states-grid">
+            <!-- Rajasthan Card -->
+            <div class="state-card">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?ixlib=rb-4.0.3" alt="Rajasthan">
+                    <div class="card-badge">Most Popular</div>
+                </div>
+                <div class="state-content">
+                    <h3>Rajasthan</h3>
+                    <div class="state-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Western India</span>
+                        <span><i class="fas fa-users"></i> 68M+ People</span>
+                    </div>
+                    <div class="state-features">
+                        <span class="feature-tag">🏰 Palaces</span>
+                        <span class="feature-tag">🏜️ Desert</span>
+                        <span class="feature-tag">🎨 Culture</span>
+                    </div>
+                    <p>Land of kings with magnificent forts, vibrant culture, and the golden Thar Desert.</p>
+                    <div class="card-actions">
+                        <button class="btn" style="padding: 0.6rem 1.2rem;">
+                            <i class="fas fa-heart"></i> Save
+                        </button>
+                        <button class="btn btn-outline" style="padding: 0.6rem 1.2rem;">
+                            Explore <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kerala Card -->
+            <div class="state-card">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1588418075920-0c7d5ee48a89?ixlib=rb-4.0.3" alt="Kerala">
+                    <div class="card-badge">Backwaters</div>
+                </div>
+                <div class="state-content">
+                    <h3>Kerala</h3>
+                    <div class="state-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Southern India</span>
+                        <span><i class="fas fa-users"></i> 35M+ People</span>
+                    </div>
+                    <div class="state-features">
+                        <span class="feature-tag">🚤 Backwaters</span>
+                        <span class="feature-tag">🏖️ Beaches</span>
+                        <span class="feature-tag">🌿 Ayurveda</span>
+                    </div>
+                    <p>God's own country with serene backwaters, lush landscapes, and rich traditions.</p>
+                    <div class="card-actions">
+                        <button class="btn" style="padding: 0.6rem 1.2rem;">
+                            <i class="fas fa-heart"></i> Save
+                        </button>
+                        <button class="btn btn-outline" style="padding: 0.6rem 1.2rem;">
+                            Explore <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goa Card -->
+            <div class="state-card">
+                <div class="image-container">
+                    <img src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?ixlib=rb-4.0.3" alt="Goa">
+                    <div class="card-badge">Beach Paradise</div>
+                </div>
+                <div class="state-content">
+                    <h3>Goa</h3>
+                    <div class="state-meta">
+                        <span><i class="fas fa-map-marker-alt"></i> Western Coast</span>
+                        <span><i class="fas fa-users"></i> 1.5M+ People</span>
+                    </div>
+                    <div class="state-features">
+                        <span class="feature-tag">🏖️ Beaches</span>
+                        <span class="feature-tag">🎉 Nightlife</span>
+                        <span class="feature-tag">🏛️ Portuguese</span>
+                    </div>
+                    <p>Sun-kissed beaches, vibrant nightlife, and unique Portuguese heritage blend.</p>
+                    <div class="card-actions">
+                        <button class="btn" style="padding: 0.6rem 1.2rem;">
+                            <i class="fas fa-heart"></i> Save
+                        </button>
+                        <button class="btn btn-outline" style="padding: 0.6rem 1.2rem;">
+                            Explore <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Share Section -->
+    <section class="share-section">
+        <div class="search-container">
+            <span class="section-subtitle">SHARE THE EXPERIENCE</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-light);">Share India's Beauty</h2>
+            <p>Inspire others to explore the incredible diversity of Indian culture and landscapes</p>
+            <div class="share-buttons">
+                <div class="share-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="share-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                </div>
+                <div class="share-btn whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="share-btn linkedin">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+                <div class="share-btn instagram">
+                    <i class="fab fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Bharat Explorer AI</h3>
+                <p>Your personal guide to Incredible India!</p>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Namaste! 🙏 I'm your AI travel assistant. Ask me about Indian states, culture, festivals, or travel tips!
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask about Indian culture, travel, or states...">
+                <button class="btn" style="padding: 0.8rem;">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Bharat Explorer. Made with ❤️ for Incredible India.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced Dark Mode Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.querySelector('i').className = 'fas fa-sun';
+        }
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Enhanced Chatbot
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+
+        chatbotToggle.addEventListener('click', () => {
+            const isVisible = chatbotWindow.style.display === 'flex';
+            chatbotWindow.style.display = isVisible ? 'none' : 'flex';
+            if (!isVisible) {
+                chatbotInput.focus();
+            }
+        });
+
+        // Enhanced chatbot responses
+        const chatbotResponses = {
+            greetings: ["Namaste! 🙏 How can I help you explore India today?", "Hello! Ready to discover Incredible India?", "Welcome! Ask me about Indian states, culture, or travel tips!"],
+            rajasthan: ["Rajasthan is known as the 'Land of Kings' with magnificent forts, palaces, and the Thar Desert. Must visit: Jaipur, Udaipur, Jodhpur!", "Rajasthan offers golden deserts, vibrant culture, and royal heritage. Don't miss the camel safari in Jaisalmer!"],
+            kerala: ["Kerala is 'God's Own Country' with beautiful backwaters, Ayurveda treatments, and lush green landscapes. Perfect for houseboat stays!", "Kerala's backwaters, beaches, and hill stations like Munnar make it a tropical paradise."],
+            goa: ["Goa is India's beach paradise with Portuguese heritage, seafood, and vibrant nightlife. Perfect for beach lovers!", "Goa offers sun, sand, and spirituality with beautiful beaches and historic churches."],
+            default: ["That's fascinating! India has so much diversity in culture, cuisine, and landscapes across its 28 states.", "I'd recommend exploring the local festivals and cuisine when you visit Indian states!", "Each Indian state has unique traditions. Would you like to know about specific cultural aspects?"]
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function getBotResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('namaste')) {
+                return chatbotResponses.greetings[Math.floor(Math.random() * chatbotResponses.greetings.length)];
+            } else if (lowerMessage.includes('rajasthan')) {
+                return chatbotResponses.rajasthan[Math.floor(Math.random() * chatbotResponses.rajasthan.length)];
+            } else if (lowerMessage.includes('kerala')) {
+                return chatbotResponses.kerala[Math.floor(Math.random() * chatbotResponses.kerala.length)];
+            } else if (lowerMessage.includes('goa')) {
+                return chatbotResponses.goa[Math.floor(Math.random() * chatbotResponses.goa.length)];
+            } else {
+                return chatbotResponses.default[Math.floor(Math.random() * chatbotResponses.default.length)];
+            }
+        }
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const userMessage = chatbotInput.value.trim();
+                if (userMessage) {
+                    addMessage(userMessage, true);
+                    chatbotInput.value = '';
+                    
+                    setTimeout(() => {
+                        const response = getBotResponse(userMessage);
+                        addMessage(response);
+                    }, 1000);
+                }
+            }
+        });
+
+        // Enhanced Favorites with Animation
+        const favoriteButtons = document.querySelectorAll('.btn .fa-heart');
+        favoriteButtons.forEach(btn => {
+            btn.parentElement.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fas')) {
+                    icon.classList.replace('fas', 'far');
+                    this.style.background = 'transparent';
+                    this.style.color = 'var(--saffron)';
+                    this.style.borderColor = 'var(--saffron)';
+                } else {
+                    icon.classList.replace('far', 'fas');
+                    this.style.background = 'var(--gradient-primary)';
+                    this.style.color = 'white';
+                    this.style.borderColor = 'transparent';
+                }
+            });
+        });
+
+        // Smooth scrolling with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Enhanced loading animation
+        document.querySelectorAll('.btn').forEach(btn => {
+            if (!btn.querySelector('.fa-heart')) {
+                btn.addEventListener('click', function() {
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '<div class="loader"></div>';
+                    this.style.pointerEvents = 'none';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = originalText;
+                        this.style.pointerEvents = 'auto';
+                    }, 1500);
+                });
+            }
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const follower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX + 'px';
+                follower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Interactive elements cursor effect
+        const interactiveElements = document.querySelectorAll('button, a, .state-card, .share-btn');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(1.5)';
+                follower.style.transform = 'scale(2)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                follower.style.transform = 'scale(1)';
+            });
+        });
+
+        // Floating animations for elements
+        function createFloatingElements() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 5; i++) {
+                const element = document.createElement('div');
+                element.className = 'floating-element';
+                element.style.width = Math.random() * 100 + 50 + 'px';
+                element.style.height = element.style.width;
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.top = Math.random() * 100 + 'vh';
+                element.style.animationDelay = Math.random() * 5 + 's';
+                element.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                hero.appendChild(element);
+            }
+        }
+
+        createFloatingElements();
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
