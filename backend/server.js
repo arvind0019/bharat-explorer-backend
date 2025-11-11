@@ -4,13 +4,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+
+// ✅ Enable CORS for your Netlify site
 app.use(cors({
-  origin: "*",
+  origin: ["https://bharat-explorer.netlify.app"],  // your frontend domain
   methods: ["GET", "POST"],
 }));
 
-// Routes
+app.use(express.json());
+
+// ---- Your routes ----
 import guideRoutes from "./routes/guideRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 
@@ -21,6 +24,6 @@ app.get("/", (req, res) => {
   res.send("Bharat Explorer backend is running...");
 });
 
-app.listen(process.env.PORT || 5000, () => {
-  console.log("✅ Server running on port", process.env.PORT || 5000);
-});
+app.listen(process.env.PORT || 5000, () =>
+  console.log(`✅ Server running on port ${process.env.PORT || 5000}`)
+);
