@@ -1,127 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Bharat Explorer — Discover India 🇮🇳</title>
-
-  <!-- Google Fonts + Font Awesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bharat Explorer | Discover Incredible India</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="particles" aria-hidden="true"></div>
 
-  <header class="header">
-    <nav class="nav">
-      <div class="logo">🇮🇳 Bharat Explorer</div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#states">States</a></li>
-        <li><a href="#popular">Popular</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="actions">
-        <button class="btn btn-outline" onclick="openModal('loginModal')"><i class="fas fa-sign-in-alt"></i> Login</button>
-        <button class="btn btn-primary" onclick="openModal('signupModal')"><i class="fas fa-user-plus"></i> Sign up</button>
-        <select id="themeSelect" onchange="switchTheme()" aria-label="Theme">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="night">Night</option>
-        </select>
-      </div>
-    </nav>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">🌏 Bharat Explorer</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="profile.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Discover the Beauty of India</h1>
+    <p>Search for any city, state, or heritage site to get instant travel guidance.</p>
   </header>
 
-  <!-- HERO -->
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>Discover Incredible India</h1>
-        <p>Explore states, tourist spots, food, culture — curated for you.</p>
-
-        <div class="search-container">
-          <input id="searchInput" class="search-input" placeholder="Search state, city, or attraction..." />
-          <button class="btn btn-primary" onclick="handleSearch()"><i class="fas fa-search"></i> Search</button>
-          <button class="location-btn" title="Use my location" onclick="getLocation()"><i class="fas fa-crosshairs"></i></button>
-        </div>
-      </div>
-
-      <div class="hero-map">
-        <div class="hero-map-content">
-          <i class="fas fa-map-marked-alt map-icon"></i>
-          <h3>Interactive map (coming soon)</h3>
-          <p>Click any state card to view details.</p>
-        </div>
-      </div>
+  <!-- Search Box -->
+  <section class="guide-section">
+    <h2>🧭 Ask About Any Place in India</h2>
+    <div class="search-box">
+      <input type="text" id="searchQuery" placeholder="e.g. Best places to visit in Rajasthan..." />
+      <button id="searchBtn">Search</button>
     </div>
+    <div id="searchResult"></div>
   </section>
 
-  <!-- STATES GRID -->
-  <section id="states" class="categories">
-    <h2 class="section-title">Browse States</h2>
-    <div id="statesGrid" class="category-grid"></div>
-  </section>
-
-  <!-- POPULAR -->
-  <section id="popular" class="popular-places">
-    <h2 class="section-title">Popular Places</h2>
-    <div id="placesGrid" class="places-grid"></div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
+  <!-- Contact Form -->
+  <section id="contact" class="contact-section">
+    <h2>📩 Contact Us</h2>
     <form id="contactForm">
-      <input id="cname" placeholder="Your name" required />
-      <input id="cemail" type="email" placeholder="Your email" required />
-      <textarea id="cmessage" placeholder="Message..." required></textarea>
-      <button class="btn btn-primary" type="submit">Send</button>
-      <p id="contactResp" aria-live="polite"></p>
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
     </form>
+    <p id="responseMsg"></p>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 Bharat Explorer • Made with ❤️ by Arvind</p>
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Bharat Explorer | Designed with ❤️ by Arvind Singh</p>
   </footer>
-
-  <!-- Login Modal (simple mock) -->
-  <div id="loginModal" class="modal" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
-      <h3>Login</h3>
-      <form onsubmit="mockLogin(event)">
-        <input id="loginEmail" type="email" placeholder="Email" required />
-        <input id="loginPass" type="password" placeholder="Password" required />
-        <button class="btn btn-primary" type="submit">Login</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Signup Modal -->
-  <div id="signupModal" class="modal" role="dialog" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" onclick="closeModal('signupModal')">&times;</button>
-      <h3>Create account</h3>
-      <form onsubmit="mockSignup(event)">
-        <input id="signupName" placeholder="Full name" required />
-        <input id="signupEmail" type="email" placeholder="Email" required />
-        <input id="signupPass" type="password" placeholder="Password" required />
-        <button class="btn btn-primary" type="submit">Create</button>
-      </form>
-    </div>
-  </div>
 
   <script src="app.js"></script>
 </body>
 </html>
-<script>
-fetch("http://localhost:5000/api/contact")
-  .then(res => res.text())
-  .then(data => console.log("✅ Backend Response:", data))
-  .catch(err => console.error("❌ Connection Error:", err));
-</script>
-

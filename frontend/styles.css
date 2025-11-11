@@ -1,63 +1,145 @@
-:root{
-  --primary:#667eea; --accent:#f093fb; --neon:#00f5ff;
-  --dark:#0f0f23; --dark-light:#1a1a2e; --text:#fff;
-  --glass: rgba(255,255,255,0.04); --glass-border: rgba(255,255,255,0.12);
+/* ---------- GENERAL ---------- */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+  color: #222;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Poppins",sans-serif;background:linear-gradient(135deg,var(--dark),var(--dark-light));color:var(--text);min-height:100vh}
-.header{position:fixed;top:0;width:100%;backdrop-filter:blur(8px);background:rgba(10,10,20,0.4);border-bottom:1px solid rgba(255,255,255,0.03);z-index:200}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 6%}
-.logo{font-weight:800;font-size:1.35rem;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;color:transparent}
-.nav-links{display:flex;gap:1.5rem;list-style:none}
-.nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-weight:600}
-.actions{display:flex;align-items:center;gap:0.8rem}
-.btn{padding:0.6rem 1rem;border-radius:999px;border:0;cursor:pointer;font-weight:700}
-.btn-primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:#fff;box-shadow:0 8px 30px rgba(102,126,234,0.18)}
-.btn-outline{background:var(--glass);border:1px solid var(--glass-border);color:var(--text)}
-select{background:var(--glass);border-radius:12px;padding:0.4rem;border:1px solid var(--glass-border);color:var(--text)}
 
-/* hero */
-.hero{min-height:80vh;display:flex;align-items:center;padding-top:80px}
-.hero-content{max-width:1200px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
-.hero-text h1{font-size:2.6rem;line-height:1.05;margin-bottom:0.6rem}
-.hero-text p{color:rgba(255,255,255,0.75);margin-bottom:1rem}
-.search-container{display:flex;gap:0.6rem;margin-top:1rem}
-.search-input{flex:1;padding:0.9rem;border-radius:14px;border:0;background:rgba(255,255,255,0.04);color:var(--text);outline:none}
-.location-btn{background:linear-gradient(90deg,var(--neon),var(--primary));border-radius:12px;padding:0.8rem;border:0;cursor:pointer}
+h1, h2 {
+  text-align: center;
+}
 
-/* hero map */
-.hero-map{background:var(--glass);border-radius:20px;padding:2rem;min-height:300px;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border)}
+/* ---------- NAVBAR ---------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004aad;
+  padding: 15px 40px;
+  color: white;
+}
 
-/* sections */
-.section-title{text-align:center;font-size:2rem;margin:3rem 0;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;color:transparent}
-.category-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;padding:0 6%}
-.category-card{background:var(--glass);border-radius:16px;padding:1.6rem;border:1px solid var(--glass-border);transition:transform .3s ease,box-shadow .3s}
-.category-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
-.category-icon{font-size:2.2rem;margin-bottom:0.6rem;display:inline-block}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
 
-/* places grid */
-.places-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;padding:0 6%}
-.place-card{background:var(--glass);border-radius:12px;border:1px solid var(--glass-border);overflow:hidden;display:flex;flex-direction:column}
-.place-image{height:160px;background:linear-gradient(90deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:2rem}
-.place-info{padding:1rem}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
 
-/* contact */
-.contact{padding:3rem 6%;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.06))}
-.contact form{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:0.8rem}
-.contact input,.contact textarea{padding:0.9rem;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.03);color:var(--text);outline:none}
-.contact textarea{min-height:120px;resize:vertical}
+.nav-links a:hover {
+  color: #ffcc00;
+}
 
-/* footer */
-.footer{padding:2rem 6%;text-align:center;color:rgba(255,255,255,0.6);margin-top:2rem}
+/* ---------- HERO ---------- */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/India_Gate_in_New_Delhi_03-2016_img3.jpg/1920px-India_Gate_in_New_Delhi_03-2016_img3.jpg')
+    center/cover no-repeat;
+  color: white;
+  text-shadow: 2px 2px 4px #000;
+}
 
-/* modal */
-.modal{display:none;position:fixed;inset:0;justify-content:center;align-items:center;background:rgba(0,0,0,0.6);z-index:9999}
-.modal-content{background:var(--glass);padding:1.4rem;border-radius:14px;border:1px solid var(--glass-border);width:min(520px,95%)}
-.modal-close{position:absolute;right:12px;top:10px;border:0;background:transparent;color:var(--text);font-size:1.6rem}
+/* ---------- GUIDE SECTION ---------- */
+.guide-section {
+  padding: 50px 20px;
+  text-align: center;
+}
 
-/* responsive */
-@media (max-width:900px){
-  .nav-links{display:none}
-  .hero-content{grid-template-columns:1fr;gap:2rem;padding:1rem}
-  .category-grid,.places-grid{padding:0 4%}
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.search-box input {
+  width: 60%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.search-box button {
+  padding: 12px 20px;
+  background: #004aad;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-box button:hover {
+  background: #002b75;
+}
+
+#searchResult {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* ---------- CONTACT SECTION ---------- */
+.contact-section {
+  padding: 60px 20px;
+  background: #f8f9fa;
+  text-align: center;
+}
+
+#contactForm {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#contactForm input,
+#contactForm textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+#contactForm button {
+  background: #004aad;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#contactForm button:hover {
+  background: #002b75;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  background: #004aad;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .search-box {
+    flex-direction: column;
+  }
+  .search-box input {
+    width: 90%;
+  }
 }
