@@ -118,3 +118,10 @@
   <script src="app.js"></script>
 </body>
 </html>
+<script>
+fetch("http://localhost:5000/api/contact")
+  .then(res => res.text())
+  .then(data => console.log("✅ Backend Response:", data))
+  .catch(err => console.error("❌ Connection Error:", err));
+</script>
+
