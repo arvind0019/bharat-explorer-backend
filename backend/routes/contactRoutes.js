@@ -1,26 +1,41 @@
 import express from "express";
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-import Contact from "../models/contact.js";
+import Contact from "../models/Contact.js";
 
-dotenv.config();
 const router = express.Router();
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+// 📨 POST - User sends contact message
+router.post("/send", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    // Basic validation
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
+    // Create and save new contact message
+    const newMessage = new Contact({ name, email, message });
+    await newMessage.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Your message has been sent successfully!",
+    });
+  } catch (err) {
+    console.error("Error saving contact message:", err);
+    res.status(500).json({ error: "Server error. Please try again later." });
+  }
 });
 
-router.post("/", async (req, res) => {
-  const { name, email, message } = req.body;
-  await new Contact({ name, email, message }).save();
-  transporter.sendMail({
-    from: process.env.EMAIL_USER,
-    to: process.env.ADMIN_EMAIL,
-    subject: "📩 New Contact Message - Bharat Explorer",
-    text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`
-  });
-  res.json({ message: "Message sent and email delivered!" });
+// 📬 GET - Admin fetches all contact messages
+router.get("/all", async (req, res) => {
+  try {
+    const messages = await Contact.find().sort({ createdAt: -1 });
+    res.status(200).json(messages);
+  } catch (err) {
+    console.error("Error fetching messages:", err);
+    res.status(500).json({ error: "Unable to fetch messages." });
+  }
 });
 
 export default router;
